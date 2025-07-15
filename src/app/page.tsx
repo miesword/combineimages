@@ -1,9 +1,9 @@
 'use client';
 
 import { useState, useRef, useCallback, useEffect } from 'react';
+import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Slider } from '@/components/ui/slider';
 
 interface UploadedImage {
@@ -129,9 +129,10 @@ export default function Home() {
     if (!ctx) return;
 
     Promise.all(images.map(img => {
-        return new Promise<HTMLImageElement>((resolve) => {
-          const image = new Image();
+        return new Promise<HTMLImageElement>((resolve, reject) => {
+          const image = new window.Image();
           image.onload = () => resolve(image);
+          image.onerror = () => reject(new Error(`Failed to load image: ${img.url}`));
           image.src = img.url;
         });
       })).then(loadedImages => {
@@ -144,9 +145,7 @@ export default function Home() {
         const borderWidthValue = (borderWidth[0] / 100) * (maxDimension / 2);
 
         // Calculate image dimensions first
-        const totalWidth = loadedImages.reduce((sum, img) => sum + img.width, 0);
-        const totalHeight = loadedImages.reduce((sum, img) => sum + img.height, 0);
-
+        // 删除未使用的totalWidth和totalHeight变量
         let canvasWidth = 0;
         let canvasHeight = 0;
 
@@ -232,7 +231,7 @@ export default function Home() {
       <header className="bg-white shadow-sm">
         <div className="max-w-4xl mx-auto px-4 py-6">
           <h1 className="text-2xl font-semibold text-gray-900 flex items-center gap-2">
-            <img src="/icons/logo.svg" alt="" className="w-6 h-6" />
+            <Image src="/icons/logo.svg" alt="Logo" width={24} height={24} className="w-6 h-6" />
             Combine Images - Create & Merge Photos Online
           </h1>
         </div>
@@ -251,7 +250,7 @@ export default function Home() {
             onDrop={handleDrop}
           >
             <div className="space-y-4">
-              <img src="/icons/upload-icon.svg" alt="" className="w-8 h-8 mx-auto opacity-50" />
+              <Image src="/icons/upload-icon.svg" alt="Upload" width={32} height={32} className="w-8 h-8 mx-auto opacity-50" />
               <div className="text-gray-600">Drag & drop your photos here</div>
               <div className="text-gray-500">or</div>
               <Button
@@ -282,7 +281,7 @@ export default function Home() {
                   onClick={() => sortImages('asc')}
                   className="flex items-center gap-1"
                 >
-                  <img src="https://ext.same-assets.com/300822938/1141240352.svg" alt="" className="w-3.5 h-3.5" />
+                  <Image src="/icons/sort-asc.svg" alt="Sort ascending" width={14} height={14} className="w-3.5 h-3.5" />
                   Sort Ascending
                 </Button>
                 <Button
@@ -291,7 +290,7 @@ export default function Home() {
                   onClick={() => sortImages('desc')}
                   className="flex items-center gap-1"
                 >
-                  <img src="https://ext.same-assets.com/300822938/804593226.svg" alt="" className="w-3.5 h-3.5" />
+                  <Image src="/icons/sort-desc.svg" alt="Sort descending" width={14} height={14} className="w-3.5 h-3.5" />
                   Sort Descending
                 </Button>
                 <Button
@@ -300,7 +299,7 @@ export default function Home() {
                   onClick={() => sortImages('reverse')}
                   className="flex items-center gap-1"
                 >
-                  <img src="https://ext.same-assets.com/300822938/519156233.svg" alt="" className="w-3.5 h-3.5" />
+                  <Image src="/icons/reverse.svg" alt="Reverse order" width={14} height={14} className="w-3.5 h-3.5" />
                   Reverse Order
                 </Button>
                 <Button
@@ -309,7 +308,7 @@ export default function Home() {
                   onClick={() => sortImages('shuffle')}
                   className="flex items-center gap-1"
                 >
-                  <img src="https://ext.same-assets.com/300822938/584438468.svg" alt="" className="w-3.5 h-3.5" />
+                  <Image src="/icons/shuffle.svg" alt="Shuffle" width={14} height={14} className="w-3.5 h-3.5" />
                   Shuffle
                 </Button>
               </div>
@@ -317,9 +316,11 @@ export default function Home() {
               <div className="grid grid-cols-6 gap-2">
                 {images.map((image) => (
                   <div key={image.id} className="relative group">
-                    <img
+                    <Image
                       src={image.url}
                       alt={image.name}
+                      width={300}
+                      height={128}
                       className="w-full h-16 object-cover rounded border"
                     />
                     <button
@@ -455,7 +456,7 @@ export default function Home() {
           <div className="bg-gray-100 rounded-lg p-8 min-h-[200px] flex items-center justify-center">
             {images.length < 2 ? (
               <div className="text-center text-gray-500">
-                <img src="/icons/no-preview.svg" alt="" className="w-10 h-10 mx-auto mb-2 opacity-50" />
+                <Image src="/icons/no-preview.svg" alt="" width={40} height={40} className="w-10 h-10 mx-auto mb-2 opacity-50" />
                 <div className="font-medium">No Preview Available</div>
                 <div className="text-sm">Select at least 2 images to combine</div>
               </div>
@@ -480,9 +481,6 @@ export default function Home() {
           <h2 className="text-lg font-medium mb-4">Combine Images: The Best Way to Merge Photos Online</h2>
           <p className="text-gray-600 mb-6 leading-relaxed">
             Our free Combine Images tool helps you easily merge multiple photos into one stunning layout.
-            Whether you're creating content for social media, organizing vacation memories, or making a photo
-            gift, this simple yet powerful image combiner lets you combine images in various layouts with
-            customizable padding and borders.
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
