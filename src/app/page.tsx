@@ -505,7 +505,7 @@ export default function Home() {
             <div className="text-center">
               <div className="text-2xl mb-2">🔄</div>
               <h3 className="font-medium mb-2">Drag & Reorder</h3>
-              <p className="text-sm text-gray-600">Easily arrange photos in the image combiner by dragging thumbnails or using sort buttons.</p>
+              <p className="text-sm text-gray-600">Easily arrange photos in the Combine Images by dragging thumbnails or using sort buttons.</p>
             </div>
 
             <div className="text-center">
@@ -521,12 +521,12 @@ export default function Home() {
             <div className="space-y-3">
               <details className="group">
                 <summary className="font-medium cursor-pointer">How many images can I combine at once?</summary>
-                <p className="text-gray-600 mt-2 text-sm">Our image combiner tool lets you merge as many images as you like. The tool automatically adjusts layouts to accommodate multiple photos.</p>
+                <p className="text-gray-600 mt-2 text-sm">Our Combine Images tool lets you merge as many images as you like. The tool automatically adjusts layouts to accommodate multiple photos.</p>
               </details>
 
               <details className="group">
                 <summary className="font-medium cursor-pointer">Can I customize the padding between images?</summary>
-                <p className="text-gray-600 mt-2 text-sm">Yes! Our image combiner now features adjustable padding controls. You can set padding from 0 to 50 pixels to get the perfect spacing between your photos.</p>
+                <p className="text-gray-600 mt-2 text-sm">Yes! Our Combine Images now features adjustable padding controls. You can set padding from 0 to 50 pixels to get the perfect spacing between your photos.</p>
               </details>
 
               <details className="group">
@@ -535,13 +535,13 @@ export default function Home() {
               </details>
 
               <details className="group">
-                <summary className="font-medium cursor-pointer">Are my images stored on your servers when I use the image combiner?</summary>
-                <p className="text-gray-600 mt-2 text-sm">No. Our image combiner processes everything locally in your browser. Your images are never uploaded to any server, ensuring complete privacy.</p>
+                <summary className="font-medium cursor-pointer">Are my images stored on your servers when I use the Combine Images?</summary>
+                <p className="text-gray-600 mt-2 text-sm">No. Our Combine Images processes everything locally in your browser. Your images are never uploaded to any server, ensuring complete privacy.</p>
               </details>
 
               <details className="group">
-                <summary className="font-medium cursor-pointer">What image formats can the image combiner work with?</summary>
-                <p className="text-gray-600 mt-2 text-sm">The image combiner supports all common image formats including JPG, PNG, GIF, and WebP.</p>
+                <summary className="font-medium cursor-pointer">What image formats can the Combine Images work with?</summary>
+                <p className="text-gray-600 mt-2 text-sm">The Combine Images supports all common image formats including JPG, PNG, GIF, and WebP.</p>
               </details>
             </div>
           </div>
