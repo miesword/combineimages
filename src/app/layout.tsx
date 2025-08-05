@@ -15,11 +15,16 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Combine Images - Merge Photos Online for Free",
-  description: "Easily combine multiple images into one. Supports drag & drop, reordering, and various layout options. Free online image merging tool with no watermarks.",
+  title: "Combine Images Online – Free Photo Merger | No Ads, Easy to Use",
+  description: "Merge multiple photos into one image online. 100% free, no ads, no watermark. Use our simple and fast image combiner tool today.",
+  icons: {
+    icon: '/icons/logo.svg',
+    shortcut: '/icons/logo.svg',
+    apple: '/icons/logo.svg',
+  },
   openGraph: {
-    title: "Combine Images - Merge Photos Online",
-    description: "Combine multiple images into a single photo with our free online image merger. Simple, fast, and no registration required.",
+    title: "Combine Images Online – Free Photo Merger | No Ads, Easy to Use",
+    description: "Merge multiple photos into one image online. 100% free, no ads, no watermark. Use our simple and fast image combiner tool today.",
     type: "website",
     url: "https://combine-images.com",
     images: [
@@ -33,8 +38,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Combine Images - Merge Photos Online",
-    description: "Free online tool to combine images into one. Supports multiple layouts and formats.",
+    title: "Combine Images Online – Free Photo Merger | No Ads, Easy to Use",
+    description: "Merge multiple photos into one image online. 100% free, no ads, no watermark. Use our simple and fast image combiner tool today.",
     images: ["https://combine-images.com/og-image.jpg"],
   },
 };
