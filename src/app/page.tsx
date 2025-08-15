@@ -231,8 +231,8 @@ export default function Home() {
       <header className="bg-white shadow-sm">
         <div className="max-w-4xl mx-auto px-4 py-6">
           <h1 className="text-2xl font-semibold text-gray-900 flex items-center gap-2">
-            <Image src="/icons/logo.svg" alt="Logo" width={24} height={24} className="w-6 h-6" />
-            Combine Images - Create & Merge Photos Online
+            <Image src="/icons/logo.svg" alt="Combine Images Online Free" width={24} height={24} className="w-6 h-6" />
+            Combine Images Online - Free Photo Merger Tool
           </h1>
         </div>
       </header>

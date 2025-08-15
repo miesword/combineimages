@@ -2,6 +2,7 @@
 
 import { useUserAnalytics } from '../hooks/useUserAnalytics';
 import { useEffect } from 'react';
+import ThemeToggle from '@/components/ui/theme-toggle';
 
 export default function ClientBody({ children }: { children: React.ReactNode }) {
   const { trackEvent } = useUserAnalytics();
@@ -34,5 +35,10 @@ export default function ClientBody({ children }: { children: React.ReactNode }) 
     };
   }, [trackEvent]);
 
-  return <>{children}</>;
+  return (
+    <div className="min-h-screen bg-background text-foreground transition-colors duration-300">
+      <ThemeToggle />
+      {children}
+    </div>
+  );
 }

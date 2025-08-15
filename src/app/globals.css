@@ -2,9 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@tailwind base;
-@tailwind components;
-
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -35,25 +32,44 @@
   }
 
   .dark {
-    --background: 240 10% 3.9%;
+    /* 使用深灰色而非纯黑色作为背景 */
+    --background: 220 20% 12%;
     --foreground: 0 0% 98%;
-    --card: 240 10% 3.9%;
+    
+    /* 卡片背景比主背景稍深，增加层次感 */
+    --card: 220 20% 9%;
     --card-foreground: 0 0% 98%;
-    --popover: 240 10% 3.9%;
+    
+    /* 弹出层背景比卡片更深 */
+    --popover: 220 20% 7%;
     --popover-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
-    --primary-foreground: 240 5.9% 10%;
-    --secondary: 240 3.7% 15.9%;
+    
+    /* 主色调使用蓝色，确保按钮在暗色背景上醒目 */
+    --primary: 210 100% 60%;
+    --primary-foreground: 0 0% 100%;
+    
+    /* 次要背景色比主背景稍深 */
+    --secondary: 220 20% 16%;
     --secondary-foreground: 0 0% 98%;
-    --muted: 240 3.7% 15.9%;
-    --muted-foreground: 240 5% 64.9%;
-    --accent: 240 3.7% 15.9%;
+    
+    /* 柔和背景色 */
+    --muted: 220 20% 18%;
+    --muted-foreground: 220 10% 70%;
+    
+    /* 强调色使用蓝色的变体 */
+    --accent: 210 50% 30%;
     --accent-foreground: 0 0% 98%;
-    --destructive: 0 62.8% 30.6%;
+    
+    /* 危险色调整为更柔和的红色 */
+    --destructive: 0 70% 45%;
     --destructive-foreground: 0 0% 98%;
-    --border: 240 3.7% 15.9%;
-    --input: 240 3.7% 15.9%;
-    --ring: 240 4.9% 83.9%;
+    
+    /* 边框和输入框使用稍亮的颜色，增加可见度 */
+    --border: 220 20% 25%;
+    --input: 220 20% 22%;
+    --ring: 210 100% 60%;
+    
+    /* 图表颜色调整为暗色模式友好的色调 */
     --chart-1: 220 70% 50%;
     --chart-2: 160 60% 45%;
     --chart-3: 30 80% 55%;
@@ -64,9 +80,169 @@
 
 @layer base {
   * {
-    @apply border-gray-300;
+    border-color: hsl(var(--border));
   }
+  /* 修改 body 样式 */
   body {
     @apply bg-background text-foreground;
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
+  
+  /* 添加全局文本元素过渡 */
+  p, h1, h2, h3, h4, h5, h6, span, div, button, label {
+    transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+  }
+  
+  /* 为特定文本元素添加微小延迟，避免同时变化导致的闪烁 */
+  .text-gray-900, .text-gray-600, .text-gray-500, .text-black {
+    transition: color 0.35s ease;
+  }
+}
+
+/* 暗黑模式基本样式 */
+.dark {
+  color-scheme: dark;
+}
+
+/* 确保图片在暗黑模式下不会过亮 */
+.dark img {
+  filter: brightness(0.9) contrast(1.1);
+}
+
+/* 暗黑模式下的输入框样式 */
+.dark input[type="color"] {
+  background-color: hsl(var(--card));
+  border-color: hsl(var(--border));
+}
+
+/* 暗黑模式下的按钮悬停效果 */
+.dark button:hover {
+  background-color: hsl(var(--accent));
+}
+
+/* 滚动条样式 */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(var(--background));
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--muted-foreground) / 0.3);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--muted-foreground) / 0.5);
+}
+
+/* 特定组件暗黑模式优化 */
+
+/* 选图片按钮优化 */
+.dark .bg-blue-600 {
+  background-color: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+  border: 1px solid hsl(var(--primary) / 0.8);
+}
+
+.dark .bg-blue-600:hover {
+  background-color: hsl(var(--primary) / 0.9);
+  box-shadow: 0 0 8px hsl(var(--primary) / 0.5);
+}
+
+/* 布局选择区域优化 */
+.dark [class*="border-blue-500"] {
+  border-color: hsl(var(--primary)) !important;
+}
+
+.dark .bg-blue-50 {
+  background-color: hsl(var(--primary) / 0.2) !important;
+}
+
+.dark .bg-gray-400, 
+.dark .bg-gray-600 {
+  background-color: hsl(var(--muted)) !important;
+}
+
+.dark .bg-gray-600 {
+  background-color: hsl(var(--accent)) !important;
+}
+
+/* 确保白色背景元素在暗模式下正确显示 */
+.dark .bg-white {
+  background-color: hsl(var(--card)) !important;
+}
+
+/* 修复这里的选择器，不使用方括号语法 */
+.dark .bg-\[\#f7f7f7\] {
+  background-color: hsl(var(--background)) !important;
+}
+
+/* 确保文本颜色在暗模式下可见 */
+/* 修改这些选择器，移除不必要的 !important */
+.dark .text-gray-900,
+.dark .text-gray-600,
+.dark .text-gray-500,
+.dark .text-black {
+  color: hsl(var(--foreground));
+}
+
+/* 使用更高优先级的选择器代替 !important */
+html.dark .text-gray-900,
+html.dark .text-gray-600,
+html.dark .text-gray-500,
+html.dark .text-black {
+  color: hsl(var(--foreground));
+}
+
+/* 确保边框在暗模式下可见 */
+.dark .border-gray-300,
+.dark .border-gray-200 {
+  border-color: hsl(var(--border)) !important;
+}
+
+/* 预览区域背景 */
+.dark .bg-gray-100 {
+  background-color: hsl(var(--secondary)) !important;
+}
+
+/* 确保按钮在暗黑模式下有足够对比度 */
+.dark button, 
+.dark .button {
+  color: hsl(var(--foreground));
+}
+
+/* 优化轮廓按钮 */
+.dark [class*="variant-outline"] {
+  border-color: hsl(var(--border));
+  background-color: transparent;
+}
+
+.dark [class*="variant-outline"]:hover {
+  background-color: hsl(var(--accent));
+  color: hsl(var(--accent-foreground));
+}
+
+/* 优化拖放区域 */
+.dark .border-dashed.border-gray-300 {
+  border-color: hsl(var(--border)) !important;
+}
+
+.dark .border-dashed.border-blue-500 {
+  border-color: hsl(var(--primary)) !important;
+}
+
+/* 添加主题过渡中的特殊处理 */
+.theme-transitioning * {
+  transition-duration: 0.3s !important;
+}
+
+/* 确保文本在过渡期间有一致的行为 */
+.theme-transitioning .text-gray-900,
+.theme-transitioning .text-gray-600,
+.theme-transitioning .text-gray-500,
+.theme-transitioning .text-black {
+  transition: color 0.3s ease !important;
 }
