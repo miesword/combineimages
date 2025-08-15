@@ -23,6 +23,7 @@ export default function Home() {
   const [backgroundColor, setBackgroundColor] = useState('#FFFFFF');
   const [borderWidth, setBorderWidth] = useState([0]);
   const [borderColor, setBorderColor] = useState('#FFFFFF');
+  const [downloadScale, setDownloadScale] = useState([100]); // 添加下载尺寸比例状态，默认100%
 
   const [isDragging, setIsDragging] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -112,11 +113,23 @@ export default function Home() {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
+    // 创建一个临时画布来调整尺寸
+    const tempCanvas = document.createElement('canvas');
+    const scale = downloadScale[0] / 100; // 将百分比转换为比例因子
+    tempCanvas.width = canvas.width * scale;
+    tempCanvas.height = canvas.height * scale;
+    
+    const tempCtx = tempCanvas.getContext('2d');
+    if (!tempCtx) return;
+    
+    // 在临时画布上绘制调整大小后的图像
+    tempCtx.drawImage(canvas, 0, 0, canvas.width, canvas.height, 0, 0, tempCanvas.width, tempCanvas.height);
+
     const link = document.createElement('a');
     link.download = 'combined-image.png';
-    link.href = canvas.toDataURL();
+    link.href = tempCanvas.toDataURL();
     link.click();
-  }, []);
+  }, [downloadScale]);
 
   // Generate combined image on canvas
   useEffect(() => {
@@ -464,6 +477,32 @@ export default function Home() {
               <canvas ref={canvasRef} className="max-w-full h-auto border rounded" />
             )}
           </div>
+          
+          {/* Download Size Control */}
+          {images.length >= 2 && (
+            <div className="mt-4 space-y-2">
+              <div className="flex justify-between">
+                <label className="text-sm font-medium">Download Image Size</label>
+                <span className="text-sm text-gray-500">
+                  {Math.round((canvasRef.current?.width || 0) * downloadScale[0] / 100)} × 
+                  {Math.round((canvasRef.current?.height || 0) * downloadScale[0] / 100)} px
+                </span>
+              </div>
+              <Slider
+                value={downloadScale}
+                onValueChange={setDownloadScale}
+                min={50}
+                max={150}
+                step={1}
+                className="w-full"
+              />
+              <div className="flex text-xs text-gray-500">
+                <span className="w-[25%] text-left">50%</span>
+                <span className="w-[50%] text-center">100%</span>
+                <span className="w-[25%] text-right">150%</span>
+              </div>
+            </div>
+          )}
         </Card>
 
         {/* Actions */}
